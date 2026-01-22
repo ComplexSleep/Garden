@@ -2,7 +2,14 @@ print("========================================")
 print("🌌 VOID HUB KEY SYSTEM")
 print("========================================")
 
-local DEV_BYPASS_KEYSYSTEM = true
+if DEV_BYPASS_KEYSYSTEM then
+    task.spawn(function()
+        getgenv().script_key = "DEV_MODE"
+        DevLoadDirectly()
+    end)
+    return
+end
+
 
 local Services = {
     Players = game:GetService("Players"),
@@ -880,7 +887,7 @@ local function DevLoadDirectly()
     DestroyKeySystem()
 
     task.spawn(function()
-        script_key = "DEV_MODE"
+        getgenv().script_key = "DEV_MODE"
 
         if game.PlaceId == 108533757090220 or game.PlaceId == 12351694619883 or game.PlaceId == 123516946198836 then
             loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/7d4d44567b1899503a60c87a69f0448f.lua"))()
@@ -949,7 +956,7 @@ local function ValidateKey(keyInput)
             DestroyKeySystem()
 
             task.spawn(function()
-                script_key = keyInput
+                getgenv().script_key = keyInput
                 print("========================================")
                 print("🚀 LOADING MAIN SCRIPT")
                 print("========================================")
